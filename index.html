@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Feliz Cumple Michel 🎉</title>
+
+  <style>
+    :root{
+      --bg0:#070912;
+      --bg1:#0b1020;
+      --bg2:#2a0a3a;
+
+      --txt:#f6f7ff;
+      --muted: rgba(240,240,255,.82);
+
+      --glass: rgba(255,255,255,.10);
+      --glass2: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.14);
+
+      --pink:#ff4fd8;
+      --cyan:#34d3ff;
+      --yellow:#ffd34d;
+      --green:#51ffb7;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.38);
+      --radius: 26px;
+
+      --safe: env(safe-area-inset-bottom, 0px);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--txt);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      overflow-x:hidden;
+
+      background:
+        radial-gradient(900px 650px at 15% 10%, rgba(52,211,255,.36), transparent 62%),
+        radial-gradient(900px 650px at 85% 15%, rgba(255,79,216,.32), transparent 62%),
+        radial-gradient(1000px 750px at 55% 95%, rgba(81,255,183,.22), transparent 62%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+    }
+
+    /* ====== Fondo: blobs suaves ====== */
+    .bgFX{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+    }
+    .blob{
+      position:absolute;
+      width: 540px; height: 540px;
+      border-radius: 999px;
+      filter: blur(48px);
+      opacity:.45;
+      mix-blend-mode: screen;
+      animation: drift 18s ease-in-out infinite;
+    }
+    .b1{ left:-220px; top:-220px;
+      background: radial-gradient(circle at 35% 30%, rgba(255,211,77,.95), rgba(255,79,216,.50), rgba(52,211,255,.30));
+      animation-duration: 18s;
+    }
+    .b2{ right:-260px; top: 70px;
+      background: radial-gradient(circle at 35% 30%, rgba(81,255,183,.92), rgba(52,211,255,.44), rgba(255,79,216,.18));
+      animation-duration: 20s;
+    }
+    .b3{ left: 18%; bottom:-280px; width: 650px; height: 650px;
+      background: radial-gradient(circle at 35% 30%, rgba(52,211,255,.72), rgba(255,79,216,.38), rgba(255,211,77,.22));
+      animation-duration: 22s;
+    }
+
+    @keyframes drift{
+      0%,100%{ transform: translate(0,0) scale(1); }
+      50%{ transform: translate(55px,-35px) scale(1.06); }
+    }
+
+    /* ====== Partículas flotantes (bonitas) ====== */
+    .sparkle{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:1;
+      overflow:hidden;
+    }
+    .sparkle i{
+      position:absolute;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      opacity: .65;
+      animation: floatUp linear infinite;
+      filter: blur(.2px);
+    }
+    @keyframes floatUp{
+      from{ transform: translateY(115vh) translateX(0) scale(.7); opacity:0; }
+      10%{ opacity:.85; }
+      to{ transform: translateY(-20vh) translateX(55px) scale(1.15); opacity:0; }
+    }
+
+    /* ====== Wrap ====== */
+    .wrap{
+      position:relative;
+      z-index:2;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: clamp(14px, 3vw, 22px);
+      padding-bottom: calc(90px + var(--safe));
+    }
+
+    /* ====== Topbar ====== */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--glass), var(--glass2));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 950;
+      font-size: 14px;
+      letter-spacing: .2px;
+      min-width: 240px;
+    }
+    .dot{
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--pink), var(--cyan), var(--yellow), var(--green), var(--pink));
+      box-shadow: 0 0 18px rgba(255,79,216,.32);
+    }
+    .miniChips{
+      display:flex;
+      gap: 8px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .chip{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.10);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      font-size: 12px;
+      user-select:none;
+    }
+    .chip img{
+      width: 20px; height: 20px;
+      object-fit:contain;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+    }
+
+    /* ====== Botones ====== */
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .btn{
+      border:0;
+      cursor:pointer;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 950;
+      color: #0b1020;
+      background: linear-gradient(90deg, var(--yellow), var(--pink));
+      box-shadow: 0 14px 30px rgba(255,79,216,.18);
+      transition: transform .12s ease, filter .12s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{ filter: brightness(1.05); }
+    .btn:active{ transform: scale(.98); }
+
+    .btnGhost{
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(0,0,0,.14);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    /* ====== Grid principal ====== */
+    .grid{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: 1fr 1.1fr; /* FOTO MAS IMPORTANTE */
+      gap: 16px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .brand{ min-width:auto; }
+    }
+
+    /* ====== Cards ====== */
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+      isolation:isolate; /* para controlar capas */
+    }
+    .pad{ padding: clamp(16px, 3vw, 22px); }
+
+    /* ====== Título ====== */
+    .kicker{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .pill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.10);
+    }
+    h1{
+      margin: 10px 0 8px;
+      font-size: clamp(34px, 5.3vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.9px;
+    }
+    .sub{
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(15px, 2.1vw, 16.6px);
+      line-height: 1.65;
+      font-weight: 650;
+    }
+
+    .messageBox{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.12);
+      border: 1px solid rgba(255,255,255,.12);
+      font-weight: 850;
+    }
+    .messageBox b{ color: var(--yellow); }
+
+    /* ====== Stickers TEMÁTICOS (solo fondo, suave, NO tapan) ====== */
+    .themeStickers{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:0;       /* atrás */
+      opacity:.14;     /* súper suave */
+    }
+    .themeStickers img{
+      position:absolute;
+      width: clamp(95px, 14vw, 155px);
+      aspect-ratio: 1/1;
+      object-fit:contain;
+      filter: none;
+      transform-origin:center;
+      animation: bob 3.4s ease-in-out infinite;
+      user-select:none;
+    }
+    .themeStickers .snow{
+      left: 12px; bottom: 10px;
+      transform: rotate(-8deg);
+      animation-delay:.15s;
+    }
+    .themeStickers .nail{
+      right: 12px; top: 12px;
+      transform: rotate(8deg);
+      animation-delay:.35s;
+    }
+    @keyframes bob{
+      0%,100%{ transform: translateY(0) rotate(var(--r, 0deg)); }
+      50%{ transform: translateY(-10px) rotate(var(--r, 0deg)); }
+    }
+    .themeStickers .snow{ --r:-8deg; }
+    .themeStickers .nail{ --r:8deg; }
+
+    /* El contenido SIEMPRE encima */
+    .contentLayer{
+      position:relative;
+      z-index:2;
+    }
+
+    /* ====== Foto PRO (protagonista) ====== */
+    .photoWrap{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: clamp(14px, 3vw, 18px);
+      z-index:2;
+    }
+
+    /* aro neón suave detrás de la foto */
+    .halo{
+      position:absolute;
+      inset: 14px;
+      border-radius: 30px;
+      background: conic-gradient(from 0deg, transparent, rgba(52,211,255,.70), rgba(255,79,216,.55), rgba(255,211,77,.50), transparent);
+      filter: blur(14px);
+      opacity: .55;
+      animation: spin 5.2s linear infinite;
+      z-index:0;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg);} }
+
+    .frame{
+      width: min(560px, 96%);
+      aspect-ratio: 1/1;
+      border-radius: 28px;
+      overflow:hidden;
+      border: 2px solid rgba(255,255,255,.22);
+      box-shadow: 0 28px 76px rgba(0,0,0,.45);
+      background: rgba(0,0,0,.18);
+      position:relative;
+      z-index:3;
+    }
+    .frame img{
+      width:100%; height:100%;
+      object-fit: cover;
+      transform: scale(1.03);
+    }
+
+    .photoCaption{
+      margin: 0;
+      text-align:center;
+      color: rgba(255,255,255,.88);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: .2px;
+      padding: 0 18px 18px;
+      z-index:3;
+      position:relative;
+    }
+
+    /* ====== Mini cards ====== */
+    .miniGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    @media (max-width: 560px){
+      .miniGrid{ grid-template-columns: 1fr; }
+      .miniChips{ display:none; } /* para no saturar en móvil */
+    }
+    .mini{
+      padding: 12px 12px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.12);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .mini .t{ font-size: 12px; color: var(--muted); font-weight: 900; margin-bottom: 4px; }
+    .mini .v{ font-size: 15px; font-weight: 950; }
+
+    /* ====== Barra inferior flotante (mobile friendly) ====== */
+    .dock{
+      position:fixed;
+      left: 50%;
+      bottom: calc(14px + var(--safe));
+      transform: translateX(-50%);
+      width: min(980px, calc(100% - 20px));
+      display:flex;
+      gap: 10px;
+      justify-content:space-between;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 22px 70px rgba(0,0,0,.35);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 30;
+    }
+    .dock .left{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      min-width: 190px;
+    }
+    .pulse{
+      width: 10px; height:10px; border-radius:50%;
+      background: var(--green);
+      box-shadow: 0 0 0 rgba(81,255,183,.0);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{ box-shadow: 0 0 0 0 rgba(81,255,183,.0); }
+      50%{ box-shadow: 0 0 0 10px rgba(81,255,183,.12); }
+      100%{ box-shadow: 0 0 0 0 rgba(81,255,183,.0); }
+    }
+    .dock .txt{
+      font-weight: 950;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.90);
+      line-height: 1.15;
+    }
+    .dock .right{
+      display:flex; gap:10px; align-items:center; justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+
+    /* ====== Modal (Sorpresa / Mensaje) ====== */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      place-items:center;
+      background: rgba(0,0,0,.58);
+      z-index: 40;
+      padding: 18px;
+    }
+    .modal.show{ display:grid; }
+    .modalBox{
+      width: min(700px, 100%);
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .modalBox h2{
+      margin: 6px 0 8px;
+      font-size: clamp(22px, 3.4vw, 32px);
+      letter-spacing: -.3px;
+    }
+    .modalBox p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 720;
+      font-size: 15.5px;
+    }
+    .close{
+      position:absolute;
+      top: 12px; right: 12px;
+      width: 40px; height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color:#fff;
+      font-weight: 1000;
+      cursor:pointer;
+    }
+
+    /* ====== Confetti canvas ====== */
+    canvas#confetti{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index: 35;
+    }
+
+    /* ====== Toast ====== */
+    .toast{
+      position:fixed;
+      top: 14px;
+      right: 14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.38);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      z-index: 60;
+      opacity:0;
+      transform: translateY(-6px);
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events:none;
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* ====== Accesibilidad reduce motion ====== */
+    @media (prefers-reduced-motion: reduce){
+      .blob, .themeStickers img, .halo, .sparkle i, .pulse{ animation: none !important; }
+    }
+
+    /* ====== Botón estilo slider (intensidad) ====== */
+    .rangeRow{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap:wrap;
+    }
+    input[type="range"]{
+      width: min(240px, 100%);
+      accent-color: var(--pink);
+    }
+    .small{
+      font-size: 12px;
+      color: rgba(255,255,255,.78);
+      font-weight: 850;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bgFX" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <div class="sparkle" id="sparkle" aria-hidden="true"></div>
+  <canvas id="confetti"></canvas>
+  <div class="toast" id="toast">✅ Listo</div>
+
+  <main class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        Saludo animado • Michel 🎉
+      </div>
+
+      <div class="miniChips">
+        <div class="chip">
+          <img src="assets/snowball.jpg" alt="Snowball">
+          Snowball
+        </div>
+        <div class="chip">
+          <img src="assets/nailong.jpg" alt="Nailong">
+          Nailong
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btnGhost" id="btnCopy">🔗 Copiar link</button>
+        <button class="btn" id="btnConfetti">🎉 Confetti</button>
+      </div>
+    </header>
+
+    <section class="grid">
+      <!-- Mensaje (izq) -->
+      <article class="card">
+        <!-- Solo decoración suave -->
+        <div class="themeStickers" aria-hidden="true">
+          <img class="snow" src="assets/snowball.jpg" alt="">
+          <img class="nail" src="assets/nailong.jpg" alt="">
+        </div>
+
+        <div class="pad contentLayer">
+          <div class="kicker">
+            <span class="pill">💖 FELIZ CUMPLEAÑOS</span>
+            <span class="pill">✨ Para Michel</span>
+            <span class="pill" id="moodPill">🌈 Modo: Normal</span>
+          </div>
+
+          <h1>¡Feliz cumple, Michel! 🥳</h1>
+
+          <p class="sub" id="mainText">
+            Hoy es tu día y te mando este saludo con mucha buena vibra.
+            Que este nuevo año te traiga momentos lindos, sonrisas sinceras,
+            y sueños cumplidos ✨💖
+          </p>
+
+          <div class="messageBox" id="messageBox">
+            <b>Michel</b>, ojalá este detallito te saque una sonrisa 😊
+            <br/>— Con cariño 💛🐰🦖
+          </div>
+
+          <div class="miniGrid">
+            <div class="mini">
+              <div class="t">🎁 Interacción</div>
+              <div class="v">Sorpresa con mensaje</div>
+            </div>
+            <div class="mini">
+              <div class="t">📱 Responsive</div>
+              <div class="v">Celular / Tablet / PC</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+            <button class="btn" id="btnSurprise">🎁 Ver sorpresa</button>
+            <button class="btn btnGhost" id="btnMagic">✨ Modo mágico</button>
+            <button class="btn btnGhost" id="btnAltMsg">📝 Cambiar mensaje</button>
+          </div>
+
+          <div class="rangeRow">
+            <span class="small">Intensidad:</span>
+            <input id="intensity" type="range" min="10" max="100" value="55" />
+            <span class="small" id="intensityLabel">55%</span>
+          </div>
+
+          <p class="small" style="margin-top:10px;">
+            Tip: Dale “Modo mágico” y luego “Sorpresa” 😄
+          </p>
+        </div>
+      </article>
+
+      <!-- Foto (derecha, protagonista) -->
+      <aside class="card">
+        <div class="photoWrap">
+          <div class="halo" aria-hidden="true"></div>
+          <div class="frame" id="frame">
+            <img src="assets/michel.png" alt="Foto de Michel" />
+          </div>
+        </div>
+
+        <p class="photoCaption" id="caption">
+          La cumpleañera más crack 💖✨
+        </p>
+
+        <div class="pad contentLayer" style="padding-top:0;">
+          <div class="miniGrid" style="margin-top:0;">
+            <div class="mini">
+              <div class="t">🐰 Snowball mood</div>
+              <div class="v" id="snowMood">Ternura</div>
+            </div>
+            <div class="mini">
+              <div class="t">🦖 Nailong mood</div>
+              <div class="v" id="nailMood">Diversión</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- Dock inferior -->
+  <div class="dock" role="region" aria-label="Acciones rápidas">
+    <div class="left">
+      <span class="pulse" aria-hidden="true"></span>
+      <div class="txt">
+        Interactúa: <b>Confetti</b>, <b>Sorpresa</b>, <b>Modo mágico</b>
+      </div>
+    </div>
+    <div class="right">
+      <button class="btn btnGhost" id="btnPhotoFx">📸 Efecto foto</button>
+      <button class="btn" id="btnQuickSurprise">🎁 Sorpresa</button>
+    </div>
+  </div>
+
+  <!-- Modal sorpresa -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="modalBox">
+      <button class="close" id="close" aria-label="Cerrar">✕</button>
+      <h2 id="mTitle">Michel 💖</h2>
+      <p id="modalText">
+        Que este año te llegue con cosas bonitas, gente bonita y momentos que te hagan sentir feliz.
+        <br><br>
+        Nunca pierdas tu brillo ✨
+        <br><br>
+        <b>¡Feliz cumpleaños!</b> 🎉🐰🦖
+      </p>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+        <button class="btn" id="btnBoom">💥 Más confetti</button>
+        <button class="btn btnGhost" id="btnClose2">✅ Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Utilidad toast =====
+    const toast = document.getElementById("toast");
+    let toastT = null;
+    function showToast(msg="✅ Listo"){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastT);
+      toastT = setTimeout(()=> toast.classList.remove("show"), 1200);
+    }
+
+    // ===== Partículas flotantes (bonitas) =====
+    const sparkle = document.getElementById("sparkle");
+    const colors = ["#ff4fd8", "#34d3ff", "#ffd34d", "#51ffb7", "#ffffff"];
+
+    function seedSparkles(count=44){
+      sparkle.innerHTML = "";
+      for(let i=0;i<count;i++){
+        const s = document.createElement("i");
+        const size = 4 + Math.random()*10;
+        s.style.width = size+"px";
+        s.style.height = size+"px";
+        s.style.left = (Math.random()*100)+"vw";
+        s.style.animationDuration = (5 + Math.random()*9)+"s";
+        s.style.animationDelay = (-Math.random()*10)+"s";
+        s.style.background = colors[Math.floor(Math.random()*colors.length)];
+        s.style.opacity = (0.18 + Math.random()*0.65).toFixed(2);
+        sparkle.appendChild(s);
+      }
+    }
+    seedSparkles();
+
+    // ===== Confetti Canvas =====
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    let W, H;
+
+    function resize(){
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    let confetti = [];
+    function popConfetti(amount = 160, power = 1){
+      for(let i=0;i<amount;i++){
+        confetti.push({
+          x: Math.random()*W,
+          y: -20 - Math.random()*H*0.15,
+          r: (3 + Math.random()*6) * power,
+          vx: (-2 + Math.random()*4) * (0.9 + power*0.45),
+          vy: (2 + Math.random()*5) * (0.9 + power*0.45),
+          rot: Math.random()*Math.PI,
+          vr: -0.22 + Math.random()*0.44,
+          c: colors[Math.floor(Math.random()*4)]
+        });
+      }
+    }
+
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      confetti = confetti.filter(p => p.y < H + 70);
+      for(const p of confetti){
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        p.vy += 0.03;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.c;
+        ctx.fillRect(-p.r, -p.r, p.r*2.4, p.r*1.2);
+        ctx.restore();
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // ===== Elementos UI =====
+    const btnConfetti = document.getElementById("btnConfetti");
+    const btnCopy = document.getElementById("btnCopy");
+    const btnSurprise = document.getElementById("btnSurprise");
+    const btnQuickSurprise = document.getElementById("btnQuickSurprise");
+    const btnMagic = document.getElementById("btnMagic");
+    const btnAltMsg = document.getElementById("btnAltMsg");
+    const btnPhotoFx = document.getElementById("btnPhotoFx");
+
+    const intensity = document.getElementById("intensity");
+    const intensityLabel = document.getElementById("intensityLabel");
+
+    const moodPill = document.getElementById("moodPill");
+    const snowMood = document.getElementById("snowMood");
+    const nailMood = document.getElementById("nailMood");
+
+    const mainText = document.getElementById("mainText");
+    const messageBox = document.getElementById("messageBox");
+    const caption = document.getElementById("caption");
+    const frame = document.getElementById("frame");
+
+    // Modal
+    const modal = document.getElementById("modal");
+    const close = document.getElementById("close");
+    const btnClose2 = document.getElementById("btnClose2");
+    const btnBoom = document.getElementById("btnBoom");
+    const modalText = document.getElementById("modalText");
+
+    // ===== Intensity =====
+    let power = 0.55;
+    function setIntensity(v){
+      const n = Math.max(10, Math.min(100, Number(v)));
+      intensity.value = n;
+      intensityLabel.textContent = n + "%";
+      power = n / 100;
+    }
+    setIntensity(intensity.value);
+    intensity.addEventListener("input", e=>{
+      setIntensity(e.target.value);
+      showToast("🎚️ Intensidad " + intensity.value + "%");
+    });
+
+    // ===== Botones =====
+    btnConfetti.addEventListener("click", ()=>{
+      popConfetti(160, power);
+      showToast("🎉 ¡Confetti!");
+    });
+
+    btnCopy.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        showToast("🔗 Link copiado");
+      }catch{
+        alert("Copia manualmente el link:\n" + location.href);
+      }
+    });
+
+    function openModal(){
+      popConfetti(200, power);
+      modal.classList.add("show");
+      showToast("🎁 Sorpresa");
+    }
+    function closeModal(){
+      modal.classList.remove("show");
+    }
+    btnSurprise.addEventListener("click", openModal);
+    btnQuickSurprise.addEventListener("click", openModal);
+    close.addEventListener("click", closeModal);
+    btnClose2.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
+    btnBoom.addEventListener("click", ()=> popConfetti(240, power));
+
+    // ===== Modo mágico =====
+    let magic = false;
+    let timer = null;
+
+    const msgVariants = [
+      {
+        mood:"🌈 Modo: Normal",
+        main:`Hoy es tu día y te mando este saludo con mucha buena vibra.
+              Que este nuevo año te traiga momentos lindos, sonrisas sinceras,
+              y sueños cumplidos ✨💖`,
+        box:`<b>Michel</b>, ojalá este detallito te saque una sonrisa 😊<br/>— Con cariño 💛🐰🦖`,
+        caption:`La cumpleañera más crack 💖✨`,
+        snow:`Ternura`,
+        nail:`Diversión`,
+        modal:`Que este año te llegue con cosas bonitas, gente bonita y momentos que te hagan sentir feliz.
+               <br><br>Nunca pierdas tu brillo ✨<br><br><b>¡Feliz cumpleaños!</b> 🎉🐰🦖`
+      },
+      {
+        mood:"✨ Modo: Brillante",
+        main:`Hoy celebramos tu existencia, Michel 💖
+              Que te rodee lo bueno, lo bonito y lo que te haga crecer.
+              ¡Que la vida te sonría enorme! 😄✨`,
+        box:`<b>Team Snowball</b> te manda ternura 🐰 y <b>Team Nailong</b> te manda alegría 🦖<br/>— Feliz cumple 🎉`,
+        caption:`Tu día, tu magia, tu momento ✨`,
+        snow:`Modo tierno`,
+        nail:`Modo color`,
+        modal:`Michel, que este cumpleaños sea un inicio bonito: paz, amor, salud y metas cumplidas.
+               <br><br>Te deseo un año lleno de historias lindas ✨<br><br><b>¡Feliz cumple!</b> 🎉`
+      },
+      {
+        mood:"💫 Modo: Fiesta",
+        main:`¡Hoy se prende la fiesta! 🥳
+              Michel, que no te falten abrazos, risas y momentos inolvidables.
+              ¡A celebrar bonito! 🎉💖`,
+        box:`<b>Regla del día:</b> Sonreír + comer rico + ser feliz 😄<br/>— Snowball 🐰 & Nailong 🦖 aprueban`,
+        caption:`Hoy es tu fiesta 🎈`,
+        snow:`Fiestero`,
+        nail:`Fiestero`,
+        modal:`¡Michel! Espero que hoy te consientan como se debe 😄
+               <br><br>Que este año venga con sorpresas bonitas y muchas razones para sonreír ✨
+               <br><br><b>¡Feliz cumpleaños!</b> 🎉`
+      }
+    ];
+
+    let msgIndex = 0;
+    function applyMessage(idx){
+      const m = msgVariants[idx % msgVariants.length];
+      moodPill.textContent = m.mood;
+      mainText.textContent = m.main.replace(/\s+/g," ").trim();
+      messageBox.innerHTML = m.box;
+      caption.textContent = m.caption;
+      snowMood.textContent = m.snow;
+      nailMood.textContent = m.nail;
+      modalText.innerHTML = m.modal;
+    }
+    applyMessage(msgIndex);
+
+    btnAltMsg.addEventListener("click", ()=>{
+      msgIndex = (msgIndex + 1) % msgVariants.length;
+      applyMessage(msgIndex);
+      popConfetti(120, power);
+      showToast("📝 Mensaje cambiado");
+    });
+
+    btnMagic.addEventListener("click", ()=>{
+      magic = !magic;
+      if(magic){
+        moodPill.textContent = "✨ Modo: Mágico";
+        seedSparkles(70);
+        popConfetti(200, power);
+        timer = setInterval(()=> popConfetti(110, power), 2400);
+        showToast("✨ Modo mágico ON");
+      }else{
+        clearInterval(timer);
+        seedSparkles(44);
+        applyMessage(msgIndex);
+        showToast("✨ Modo mágico OFF");
+      }
+    });
+
+    // ===== Efecto Foto (dinámico sin tapar) =====
+    let fx = 0;
+    btnPhotoFx.addEventListener("click", ()=>{
+      fx = (fx + 1) % 4;
+
+      if(fx === 0){
+        frame.style.filter = "none";
+        frame.style.transform = "none";
+        showToast("📸 Foto normal");
+      }
+      if(fx === 1){
+        frame.style.filter = "contrast(1.06) saturate(1.10) brightness(1.03)";
+        frame.style.transform = "rotate(-0.4deg) scale(1.01)";
+        showToast("📸 Foto viva");
+      }
+      if(fx === 2){
+        frame.style.filter = "saturate(1.25) contrast(1.04)";
+        frame.style.transform = "rotate(0.4deg) scale(1.01)";
+        showToast("📸 Foto color");
+      }
+      if(fx === 3){
+        frame.style.filter = "brightness(1.03) contrast(1.06) saturate(1.05)";
+        frame.style.transform = "scale(1.02)";
+        showToast("📸 Foto pro");
+      }
+    });
+
+    // ===== Auto-confetti al cargar =====
+    setTimeout(()=> popConfetti(150, power), 520);
+
+    // ===== Interacción: tilt suave en foto (mouse / touch) =====
+    // (no tapa, solo da sensación 3D)
+    const frameEl = document.getElementById("frame");
+    let raf = null;
+
+    function tiltTo(x, y){
+      const rX = (y - 0.5) * -8;
+      const rY = (x - 0.5) *  10;
+      frameEl.style.transform = `perspective(900px) rotateX(${rX}deg) rotateY(${rY}deg) scale(1.01)`;
+    }
+
+    function resetTilt(){
+      frameEl.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
+    }
+
+    frameEl.addEventListener("mousemove", (e)=>{
+      const rect = frameEl.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(()=> tiltTo(x,y));
+    });
+
+    frameEl.addEventListener("mouseleave", ()=>{
+      cancelAnimationFrame(raf);
+      resetTilt();
+    });
+
+    frameEl.addEventListener("touchmove", (e)=>{
+      const t = e.touches[0];
+      const rect = frameEl.getBoundingClientRect();
+      const x = (t.clientX - rect.left) / rect.width;
+      const y = (t.clientY - rect.top) / rect.height;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(()=> tiltTo(x,y));
+    }, {passive:true});
+
+    frameEl.addEventListener("touchend", resetTilt);
+  </script>
+</body>
+</html>
