@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#6d5dfc" />
+  <meta name="description" content="Aisha Math: aventura interactiva de matemáticas con miles de niveles, pistas, voz y progreso." />
+  <title>Aisha Math ✨</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
+  <main class="app" id="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <div><strong>Aisha Math</strong><small>Aprender jugando ✨</small></div>
+      </div>
+      <div class="stats" aria-label="Progreso">
+        <span title="Experiencia">⭐ <b id="xp">0</b> XP</span>
+        <span title="Racha">🔥 <b id="streak">0</b></span>
+        <span title="Nivel">🏆 <b id="levelTop">1</b></span>
+      </div>
+    </header>
+
+    <section class="hero" id="homeView">
+      <div class="hero-copy">
+        <span class="eyebrow">AVENTURA DE MATEMÁTICAS</span>
+        <h1>¡Hola! Soy <em>Aisha</em> 👋</h1>
+        <p>Te acompaño paso a paso. Podemos practicar, pedir pistas, escuchar los ejercicios y avanzar por <strong>10 000 niveles</strong>.</p>
+        <div class="hero-actions">
+          <button class="primary" id="startBtn">▶ Continuar aventura</button>
+          <button class="secondary" id="chooseBtn">🗺️ Elegir mundo</button>
+        </div>
+        <div class="quick-note">Sin anuncios · progreso guardado en este dispositivo · funciona en celular y PC</div>
+      </div>
+      <div class="aisha-stage">
+        <div class="speech" id="homeSpeech">“Equivocarse también es aprender. Yo te doy una pista y lo intentamos otra vez 💜”</div>
+        <div class="mascot" id="mascot" aria-label="Aisha, guía de matemáticas">
+          <div class="hair back"></div><div class="ear left"></div><div class="ear right"></div>
+          <div class="face"><div class="hair fringe"></div><div class="brow l"></div><div class="brow r"></div><div class="eye l"></div><div class="eye r"></div><div class="nose"></div><div class="mouth"></div><div class="cheek l"></div><div class="cheek r"></div></div>
+          <div class="neck"></div><div class="body"><span>π</span></div><div class="arm left"></div><div class="arm right"></div>
+        </div>
+        <button class="speak-btn" id="introSpeakBtn" aria-label="Escuchar a Aisha">🔊 Escuchar a Aisha</button>
+      </div>
+    </section>
+
+    <section class="worlds hidden" id="worldsView" aria-labelledby="worldTitle">
+      <div class="section-head"><div><span class="eyebrow">MAPA DE APRENDIZAJE</span><h2 id="worldTitle">Elige un mundo</h2></div><button class="secondary small" data-go-home>← Inicio</button></div>
+      <div class="world-grid" id="worldGrid"></div>
+    </section>
+
+    <section class="game hidden" id="gameView" aria-live="polite">
+      <div class="game-top">
+        <button class="icon-btn" id="backBtn" aria-label="Volver al mapa">←</button>
+        <div class="progress-wrap"><div class="progress-meta"><span id="worldName">Mundo</span><strong>Nivel <span id="levelNum">1</span> / 10000</strong></div><div class="progress"><i id="progressBar"></i></div></div>
+        <button class="icon-btn" id="soundBtn" aria-label="Activar o silenciar voz">🔊</button>
+      </div>
+
+      <div class="game-layout">
+        <aside class="coach-card">
+          <div class="mini-aisha"><div class="mini-face">A</div><div><strong>Aisha</strong><small>Tu compañera</small></div></div>
+          <div class="coach-message" id="coachMessage">¡Vamos! Lee con calma y piensa qué operación necesitas.</div>
+          <div class="coach-actions">
+            <button id="readBtn">🔊 Leer</button>
+            <button id="hintBtn">💡 Pista</button>
+            <button id="explainBtn">🧠 Explícame</button>
+          </div>
+        </aside>
+
+        <article class="challenge-card">
+          <div class="challenge-tags"><span id="difficultyTag">Fácil</span><span id="skillTag">Perímetro</span></div>
+          <div id="visualArea" class="visual-area" aria-label="Representación visual del ejercicio"></div>
+          <h2 id="question">Cargando ejercicio…</h2>
+          <div id="answerArea" class="answer-area"></div>
+          <div id="feedback" class="feedback" role="status"></div>
+          <div class="challenge-actions"><button class="secondary" id="skipBtn">↷ Otro parecido</button><button class="primary" id="checkBtn">Comprobar ✓</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="parent hidden" id="parentView">
+      <div class="section-head"><div><span class="eyebrow">PARA ACOMPAÑAR SU AVANCE</span><h2>Progreso</h2></div><button class="secondary small" data-go-home>← Inicio</button></div>
+      <div class="report-grid">
+        <div class="report-card"><span>⭐</span><strong id="reportXp">0</strong><small>XP total</small></div>
+        <div class="report-card"><span>✅</span><strong id="reportCorrect">0</strong><small>Respuestas correctas</small></div>
+        <div class="report-card"><span>🔥</span><strong id="reportBest">0</strong><small>Mejor racha</small></div>
+        <div class="report-card"><span>🏆</span><strong id="reportLevel">1</strong><small>Nivel alcanzado</small></div>
+      </div>
+      <div class="mastery-card"><h3>Habilidades practicadas</h3><div id="masteryList"></div></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button data-nav="home" class="active">🏠<span>Inicio</span></button>
+      <button data-nav="worlds">🗺️<span>Mundos</span></button>
+      <button data-nav="game">🎯<span>Jugar</span></button>
+      <button data-nav="parent">📈<span>Progreso</span></button>
+    </nav>
+  </main>
+
+  <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Cerrar">×</button><div class="modal-icon" id="modalIcon">💡</div><h3 id="modalTitle">Pista</h3><p id="modalText"></p><button class="primary" id="modalOk">Entendido</button></div>
+  </div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>
