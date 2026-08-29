@@ -4,104 +4,151 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#6d5dfc" />
-  <meta name="description" content="Aisha Math: aventura interactiva de matemáticas con miles de niveles, pistas, voz y progreso." />
-  <title>Aisha Math ✨</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Aisha Math 4: aventura, juegos y práctica adaptativa de matemática para 4.º de primaria." />
+  <title>Aisha Math 4 ✨</title>
+  <link rel="stylesheet" href="game-v2.css" />
 </head>
 <body>
-  <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
-  <main class="app" id="app">
+  <div class="ambient" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <main class="shell" id="app">
     <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">A</div>
-        <div><strong>Aisha Math</strong><small>Aprender jugando ✨</small></div>
-      </div>
-      <div class="stats" aria-label="Progreso">
-        <span title="Experiencia">⭐ <b id="xp">0</b> XP</span>
-        <span title="Racha">🔥 <b id="streak">0</b></span>
-        <span title="Nivel">🏆 <b id="levelTop">1</b></span>
+      <button class="brand" data-view="home" aria-label="Ir al inicio">
+        <span class="brand-orb">A</span>
+        <span><strong>Aisha Math</strong><small>4.º de primaria · Perú</small></span>
+      </button>
+      <div class="top-stats">
+        <span title="Estrellas">⭐ <b id="starsTop">0</b></span>
+        <span title="Gemas">💎 <b id="gemsTop">0</b></span>
+        <span title="Racha">🔥 <b id="streakTop">0</b></span>
       </div>
     </header>
 
-    <section class="hero" id="homeView">
-      <div class="hero-copy">
-        <span class="eyebrow">AVENTURA DE MATEMÁTICAS</span>
-        <h1>¡Hola! Soy <em>Aisha</em> 👋</h1>
-        <p>Te acompaño paso a paso. Podemos practicar, pedir pistas, escuchar los ejercicios y avanzar por <strong>10 000 niveles</strong>.</p>
-        <div class="hero-actions">
-          <button class="primary" id="startBtn">▶ Continuar aventura</button>
-          <button class="secondary" id="chooseBtn">🗺️ Elegir mundo</button>
+    <section class="view home-view" id="homeView">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <span class="grade-pill">🌟 HECHO PARA 4.º DE PRIMARIA</span>
+          <h1>Aprender matemáticas puede sentirse como <em>jugar</em>.</h1>
+          <p id="heroGreeting">Aisha te acompaña con pistas, dibujos, voz y retos cortitos. Sin castigos por equivocarte.</p>
+          <div class="hero-actions">
+            <button class="btn primary big" id="continueBtn">▶ Continuar aventura</button>
+            <button class="btn soft big" data-view="play">🎮 Elegir juego</button>
+          </div>
+          <div class="daily" id="dailyQuest"><span>🎁</span><div><b>Misión de hoy</b><small>Completa 5 ejercicios para ganar 3 gemas.</small></div><strong id="dailyCount">0/5</strong></div>
         </div>
-        <div class="quick-note">Sin anuncios · progreso guardado en este dispositivo · funciona en celular y PC</div>
+
+        <div class="aisha-panel">
+          <div class="speech" id="aishaSpeech">“Hola 💜. Aquí puedes pensar con calma. Si algo cuesta, te doy una pista.”</div>
+          <div class="aisha" id="aishaMascot" aria-label="Aisha, guía de matemáticas">
+            <div class="aisha-hair back"></div><div class="aisha-ear left"></div><div class="aisha-ear right"></div>
+            <div class="aisha-face"><div class="aisha-hair fringe"></div><i class="brow left"></i><i class="brow right"></i><i class="eye left"></i><i class="eye right"></i><i class="nose"></i><i class="mouth"></i><i class="cheek left"></i><i class="cheek right"></i></div>
+            <div class="aisha-neck"></div><div class="aisha-body"><span>π</span></div><div class="aisha-arm left"></div><div class="aisha-arm right"></div>
+          </div>
+          <div class="aisha-buttons"><button class="mini-btn" id="speakHello">🔊 Escuchar</button><button class="mini-btn" id="changeName">✏️ Mi nombre</button></div>
+        </div>
       </div>
-      <div class="aisha-stage">
-        <div class="speech" id="homeSpeech">“Equivocarse también es aprender. Yo te doy una pista y lo intentamos otra vez 💜”</div>
-        <div class="mascot" id="mascot" aria-label="Aisha, guía de matemáticas">
-          <div class="hair back"></div><div class="ear left"></div><div class="ear right"></div>
-          <div class="face"><div class="hair fringe"></div><div class="brow l"></div><div class="brow r"></div><div class="eye l"></div><div class="eye r"></div><div class="nose"></div><div class="mouth"></div><div class="cheek l"></div><div class="cheek r"></div></div>
-          <div class="neck"></div><div class="body"><span>π</span></div><div class="arm left"></div><div class="arm right"></div>
-        </div>
-        <button class="speak-btn" id="introSpeakBtn" aria-label="Escuchar a Aisha">🔊 Escuchar a Aisha</button>
+
+      <div class="section-title"><div><span>ELIGE CÓMO APRENDER</span><h2>¿Qué quieres hacer ahora?</h2></div></div>
+      <div class="mode-grid">
+        <button class="mode-card adventure" data-mode="adventure"><span class="mode-icon">🗺️</span><div><b>Aventura</b><small>24 000 niveles por mundos</small></div><em>Seguir →</em></button>
+        <button class="mode-card arcade" data-view="play"><span class="mode-icon">🎮</span><div><b>Arcade</b><small>Juegos cortos y tranquilos</small></div><em>Jugar →</em></button>
+        <button class="mode-card train" data-view="topics"><span class="mode-icon">🎯</span><div><b>Practicar</b><small>Escoge el tema de la tarea</small></div><em>Elegir →</em></button>
+        <button class="mode-card calm" data-mode="calm"><span class="mode-icon">🌿</span><div><b>Zona calma</b><small>Sin reloj, sin presión</small></div><em>Entrar →</em></button>
+      </div>
+
+      <div class="home-row">
+        <article class="journey-card">
+          <div><span class="tiny-label">TU VIAJE</span><h3 id="journeyTitle">Mundo 1 · Números</h3><p id="journeyText">Aprende valor posicional y compara cantidades.</p></div>
+          <div class="journey-progress"><div><i id="journeyBar"></i></div><small id="journeyLevel">Nivel 1 de 24 000</small></div>
+        </article>
+        <article class="reward-card"><span>🏆</span><div><b id="badgeName">Explorador inicial</b><small id="badgeHint">Resuelve 10 retos para desbloquear tu siguiente insignia.</small></div></article>
       </div>
     </section>
 
-    <section class="worlds hidden" id="worldsView" aria-labelledby="worldTitle">
-      <div class="section-head"><div><span class="eyebrow">MAPA DE APRENDIZAJE</span><h2 id="worldTitle">Elige un mundo</h2></div><button class="secondary small" data-go-home>← Inicio</button></div>
+    <section class="view hidden" id="playView">
+      <div class="section-head"><div><span class="tiny-label">ARCADE DE AISHA</span><h2>Juega un ratito 🎮</h2><p>Todos los juegos practican matemática de 4.º, pero se sienten distintos.</p></div><button class="btn soft" data-view="home">← Inicio</button></div>
+      <div class="game-pick-grid">
+        <button class="game-pick" data-mode="stars"><span>🌠</span><b>Carrera de estrellas</b><small>10 retos rápidos. El reloj es opcional.</small><em>+ estrellas</em></button>
+        <button class="game-pick" data-mode="treasure"><span>🏴‍☠️</span><b>Cofres del tesoro</b><small>Resuelve y abre cofres sorpresa.</small><em>+ gemas</em></button>
+        <button class="game-pick" data-mode="bubbles"><span>🫧</span><b>Burbujas matemágicas</b><small>Encuentra la burbuja con la respuesta.</small><em>relajante</em></button>
+        <button class="game-pick" data-mode="memory"><span>🧠</span><b>Memoria de parejas</b><small>Une operaciones con sus resultados.</small><em>memoria</em></button>
+        <button class="game-pick" data-mode="market"><span>🛒</span><b>Mercadito</b><small>Compra, calcula vuelto y compara precios.</small><em>dinero</em></button>
+        <button class="game-pick" data-mode="detective"><span>🔎</span><b>Detective de datos</b><small>Lee tablas y gráficos para hallar pistas.</small><em>datos</em></button>
+      </div>
+    </section>
+
+    <section class="view hidden" id="topicsView">
+      <div class="section-head"><div><span class="tiny-label">PRÁCTICA LIBRE</span><h2>Elige un tema de 4.º</h2><p>Basado en las cuatro competencias de Matemática del currículo peruano.</p></div><button class="btn soft" data-view="home">← Inicio</button></div>
+      <div class="competency-note"><span>📘</span><p><b>4 competencias:</b> cantidad · regularidad, equivalencia y cambio · forma, movimiento y localización · gestión de datos e incertidumbre.</p></div>
+      <div class="topic-grid" id="topicGrid"></div>
+    </section>
+
+    <section class="view hidden" id="worldsView">
+      <div class="section-head"><div><span class="tiny-label">AVENTURA</span><h2>Los 12 mundos</h2><p>Cada mundo tiene 2 000 niveles y varias clases de reto.</p></div><button class="btn soft" data-view="home">← Inicio</button></div>
       <div class="world-grid" id="worldGrid"></div>
     </section>
 
-    <section class="game hidden" id="gameView" aria-live="polite">
-      <div class="game-top">
-        <button class="icon-btn" id="backBtn" aria-label="Volver al mapa">←</button>
-        <div class="progress-wrap"><div class="progress-meta"><span id="worldName">Mundo</span><strong>Nivel <span id="levelNum">1</span> / 10000</strong></div><div class="progress"><i id="progressBar"></i></div></div>
-        <button class="icon-btn" id="soundBtn" aria-label="Activar o silenciar voz">🔊</button>
+    <section class="view hidden" id="challengeView" aria-live="polite">
+      <div class="challenge-top">
+        <button class="icon-btn" id="challengeBack" aria-label="Volver">←</button>
+        <div class="challenge-progress"><div><span id="modeLabel">Aventura</span><b id="levelLabel">Nivel 1</b></div><div class="bar"><i id="levelBar"></i></div></div>
+        <button class="icon-btn" id="soundToggle" aria-label="Activar o silenciar voz">🔊</button>
       </div>
 
-      <div class="game-layout">
-        <aside class="coach-card">
-          <div class="mini-aisha"><div class="mini-face">A</div><div><strong>Aisha</strong><small>Tu compañera</small></div></div>
-          <div class="coach-message" id="coachMessage">¡Vamos! Lee con calma y piensa qué operación necesitas.</div>
-          <div class="coach-actions">
-            <button id="readBtn">🔊 Leer</button>
-            <button id="hintBtn">💡 Pista</button>
-            <button id="explainBtn">🧠 Explícame</button>
-          </div>
+      <div class="challenge-layout">
+        <aside class="coach">
+          <div class="coach-head"><span class="mini-aisha">A</span><div><b>Aisha</b><small id="coachMood">Estoy contigo</small></div></div>
+          <p id="coachText">Lee despacio. Primero piensa qué te están preguntando.</p>
+          <div class="coach-tools"><button id="readQuestion">🔊 Leer</button><button id="hintBtn">💡 Pista</button><button id="explainBtn">🧩 Paso a paso</button></div>
+          <div class="hint-dots" id="hintDots"><i></i><i></i><i></i></div>
         </aside>
 
-        <article class="challenge-card">
-          <div class="challenge-tags"><span id="difficultyTag">Fácil</span><span id="skillTag">Perímetro</span></div>
-          <div id="visualArea" class="visual-area" aria-label="Representación visual del ejercicio"></div>
-          <h2 id="question">Cargando ejercicio…</h2>
-          <div id="answerArea" class="answer-area"></div>
-          <div id="feedback" class="feedback" role="status"></div>
-          <div class="challenge-actions"><button class="secondary" id="skipBtn">↷ Otro parecido</button><button class="primary" id="checkBtn">Comprobar ✓</button></div>
+        <article class="problem-card">
+          <div class="problem-meta"><span id="competencyTag">Cantidad</span><span id="skillTag">Números</span><span id="difficultyTag">Suave</span></div>
+          <div class="visual" id="visualArea"></div>
+          <h2 id="questionText">Cargando...</h2>
+          <div class="answer-area" id="answerArea"></div>
+          <div class="feedback" id="feedback"></div>
+          <div class="problem-actions"><button class="btn soft" id="newSimilar">↻ Otro parecido</button><button class="btn primary" id="checkAnswer">Comprobar ✓</button></div>
         </article>
       </div>
     </section>
 
-    <section class="parent hidden" id="parentView">
-      <div class="section-head"><div><span class="eyebrow">PARA ACOMPAÑAR SU AVANCE</span><h2>Progreso</h2></div><button class="secondary small" data-go-home>← Inicio</button></div>
-      <div class="report-grid">
-        <div class="report-card"><span>⭐</span><strong id="reportXp">0</strong><small>XP total</small></div>
-        <div class="report-card"><span>✅</span><strong id="reportCorrect">0</strong><small>Respuestas correctas</small></div>
-        <div class="report-card"><span>🔥</span><strong id="reportBest">0</strong><small>Mejor racha</small></div>
-        <div class="report-card"><span>🏆</span><strong id="reportLevel">1</strong><small>Nivel alcanzado</small></div>
-      </div>
-      <div class="mastery-card"><h3>Habilidades practicadas</h3><div id="masteryList"></div></div>
+    <section class="view hidden" id="memoryView">
+      <div class="section-head"><div><span class="tiny-label">MEMORIA MATEMÁGICA</span><h2>Encuentra las parejas 🧠</h2><p>Une cada operación con su resultado. No hay tiempo límite.</p></div><button class="btn soft" data-view="play">← Juegos</button></div>
+      <div class="memory-status"><span>Movimientos: <b id="memoryMoves">0</b></span><span>Parejas: <b id="memoryPairs">0</b>/6</span></div>
+      <div class="memory-grid" id="memoryGrid"></div>
+      <div class="center-actions"><button class="btn primary" id="memoryReset">🔄 Nueva partida</button></div>
     </section>
 
-    <nav class="bottom-nav" aria-label="Navegación principal">
-      <button data-nav="home" class="active">🏠<span>Inicio</span></button>
-      <button data-nav="worlds">🗺️<span>Mundos</span></button>
-      <button data-nav="game">🎯<span>Jugar</span></button>
-      <button data-nav="parent">📈<span>Progreso</span></button>
+    <section class="view hidden" id="progressView">
+      <div class="section-head"><div><span class="tiny-label">PROGRESO</span><h2>Así va aprendiendo 🌱</h2><p>Se guarda solo en este dispositivo.</p></div><button class="btn soft" data-view="home">← Inicio</button></div>
+      <div class="report-grid">
+        <article><span>⭐</span><b id="reportStars">0</b><small>Estrellas</small></article>
+        <article><span>💎</span><b id="reportGems">0</b><small>Gemas</small></article>
+        <article><span>✅</span><b id="reportCorrect">0</b><small>Correctas</small></article>
+        <article><span>🔥</span><b id="reportBest">0</b><small>Mejor racha</small></article>
+      </div>
+      <div class="progress-panel"><h3>Dominio por tema</h3><div id="masteryList"></div></div>
+      <div class="progress-panel"><h3>Insignias</h3><div class="badge-grid" id="badgeGrid"></div></div>
+      <div class="parent-actions"><button class="btn soft" id="resetProgress">Reiniciar progreso</button></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Navegación">
+      <button data-view="home" class="active">🏠<span>Inicio</span></button>
+      <button data-view="worlds">🗺️<span>Aventura</span></button>
+      <button data-view="play">🎮<span>Juegos</span></button>
+      <button data-view="topics">🎯<span>Practicar</span></button>
+      <button data-view="progress">📈<span>Progreso</span></button>
     </nav>
   </main>
 
   <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Cerrar">×</button><div class="modal-icon" id="modalIcon">💡</div><h3 id="modalTitle">Pista</h3><p id="modalText"></p><button class="primary" id="modalOk">Entendido</button></div>
+    <div class="modal-card"><button class="modal-x" id="modalClose" aria-label="Cerrar">×</button><span class="modal-icon" id="modalIcon">💡</span><h3 id="modalTitle">Pista</h3><div id="modalText"></div><button class="btn primary" id="modalOk">Entendido</button></div>
+  </div>
+  <div class="name-modal hidden" id="nameModal" role="dialog" aria-modal="true" aria-label="Guardar nombre">
+    <form class="modal-card" id="nameForm"><span class="modal-icon">🌟</span><h3>¿Cómo quieres que te llame Aisha?</h3><label>Nombre o apodo<input id="nameInput" maxlength="18" autocomplete="off" placeholder="Ej. Nico" /></label><button class="btn primary" type="submit">Guardar</button><button class="btn soft" type="button" id="nameCancel">Ahora no</button></form>
   </div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>
-  <script src="app.js"></script>
+  <script src="game-v2.js"></script>
 </body>
 </html>
